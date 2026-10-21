@@ -49,7 +49,7 @@ Cause, read from the error: the Groq Free organisation limit of 8 000 tokens per
 
 ## Deviations from the protocol
 
-- One member (Axel) ran A, B, C and D; another member (Léo) ran E. The protocol plans one operator per model. C and E still used two distinct personal OpenRouter accounts, as required.
+- One member (Axel) ran A, B, C and D; another member (Nathan) ran E. The protocol plans one operator per model. C and E still used two distinct personal OpenRouter accounts, as required.
 - Longer pauses than the 3 s minimum, which the protocol allows:
   - D (qwen): `--pause 8`, after the 429 on B, to stay under the Groq Free limit of 8 000 tokens per minute;
   - C and E (OpenRouter `:free`): `--pause 4`, to stay under the limit of about 20 requests per minute of free models.
