@@ -1,0 +1,101 @@
+case_id,model_id,trace_file,cell_id,nature,status,value_cents,reference_cents,explanation
+C01,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C01,real,correct,792800,792800,Correct on first attempt.
+C02,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C02,real,correct,590320,590320,Correct on first attempt.
+C03,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C03,real,correct,936350,936350,Correct on first attempt.
+C04,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C04,real,correct,2826250,2826250,Correct on first attempt.
+C05,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C05,real,correct,38480,38480,Correct on first attempt.
+C06,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C06,real,correct,0,0,Correct on first attempt.
+C07,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C07,real,correct,13970,13970,Correct on first attempt.
+C08,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C08,real,sql_invalid,,605580,Invalid SQL: alias 'AS age_year' inside an arithmetic expression (syntax error); the expression also never subtracts the birth year from 2026.
+C09,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C09,real,incorrect,0,487980,"Age convention broken: compares birth year minus a correction with 25, never subtracts it from 2026 -> no customer matches, 0."
+C10,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C10,real,incorrect,548920,558980,"Age convention broken: CAST('YYYY-MM-DD' AS INTEGER) keeps only the year, so age is a year difference; month and day ignored."
+C11,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C11,real,incorrect,0,446690,"Age convention broken: year difference reversed (birth year - 2026 = 25, impossible) -> 0."
+C12,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C12,real,correct,1666490,1666490,Correct on first attempt.
+C13,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C13,real,correct,107740,107740,Correct on first attempt.
+C14,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C14,real,correct,0,0,Correct on first attempt.
+C15,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C15,real,incorrect,314020,168680,"Age convention broken: birth_date in (2000-09-25, 2026-09-25] selects every customer aged 0 to 25, not exactly 25."
+C16,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C16,real,incorrect,0,376740,"Age convention broken: the last two conditions require the same date expression to be both > and <= 2026-09-25 -> no row, 0."
+C17,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C17,real,incorrect,197080,258180,"Age convention broken: builds 'MM-YYYY' (month || '-' || year) and compares it with '09-25', so the birthday test is wrong."
+C18,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C18,real,sql_invalid,,62480,"Invalid SQL: unbalanced parentheses (SQLite 'incomplete input'). Not a truncation: 343 completion tokens, below the 1024 cap."
+C19,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C19,real,correct,1990,1990,Correct on first attempt.
+C20,cohere/north-mini-code:free,traces-C.csv,openrouter:cohere/north-mini-code:free:C20,real,correct,1106090,1106090,Correct on first attempt.
+C01,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C01,real,correct,792800,792800,Correct on first attempt.
+C02,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C02,real,correct,590320,590320,Correct on first attempt.
+C03,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C03,real,correct,936350,936350,Correct on first attempt.
+C04,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C04,real,correct,2826250,2826250,Correct on first attempt.
+C05,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C05,real,correct,38480,38480,Correct on first attempt.
+C06,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C06,real,correct,0,0,Correct on first attempt.
+C07,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C07,real,correct,13970,13970,Correct on first attempt.
+C08,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C08,real,incorrect,25920,605580,"Age convention broken: requires the birthday (month-day) to be exactly 09-24, so only customers born on 2001-09-24 are kept."
+C09,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C09,real,incorrect,47900,487980,Age convention broken: hard-codes a single birth date (2001-09-26) instead of the one-year range of customers aged 25.
+C10,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C10,real,incorrect,0,558980,Age convention broken: requires the birthday to be both passed and not yet passed on the order date (contradictory) -> 0.
+C11,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C11,real,incorrect,0,446690,Age convention broken: hard-codes birth_date = '2001-12-01' only; no customer born that day -> 0.
+C12,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C12,real,correct,1666490,1666490,Correct on first attempt.
+C13,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C13,real,correct,107740,107740,Correct on first attempt.
+C14,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C14,real,correct,0,0,Correct on first attempt.
+C15,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C15,real,incorrect,138920,168680,"Age convention incomplete: keeps only year difference 25 with birthday passed; misses customers born late 2000 (difference 26, birthday not yet passed)."
+C16,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C16,real,sql_rejected,,376740,"Rejected by the sandbox: two statements returned (a first query with a contradictory condition the model flags itself, then a corrected one); one statement only is allowed."
+C17,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C17,real,incorrect,152730,258180,"Age convention incomplete: same as C15, only birth year 2001 considered; customers born late 2000 and aged 25 are missed."
+C18,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C18,real,incorrect,39580,62480,Age convention incomplete: same as C15 at the order date; misses customers aged 25 before their birthday in the order year.
+C19,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C19,real,incorrect,13930,1990,"Age convention broken: compares the birth month with 25 (a day) instead of 9, so the birthday correction never applies; year-only age."
+C20,dots-studio/dots-3-note-preview:free,traces-E.csv,openrouter:dots-studio/dots-3-note-preview:free:C20,real,correct,1106090,1106090,Correct on first attempt.
+C01,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C01,real,correct,792800,792800,Correct on first attempt.
+C02,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C02,real,correct,590320,590320,Correct on first attempt.
+C03,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C03,real,correct,936350,936350,Correct on first attempt.
+C04,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C04,real,correct,2826250,2826250,Correct on first attempt.
+C05,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C05,real,correct,38480,38480,Correct on first attempt.
+C06,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C06,real,correct,0,0,Correct on first attempt.
+C07,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C07,real,correct,13970,13970,Correct on first attempt.
+C08,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C08,real,correct,605580,605580,Correct on first attempt.
+C09,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C09,real,correct,487980,487980,Correct on first attempt.
+C10,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C10,real,correct,558980,558980,Correct on first attempt.
+C11,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C11,real,correct,446690,446690,Correct on first attempt.
+C12,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C12,real,correct,1666490,1666490,Correct on first attempt.
+C13,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C13,real,correct,107740,107740,Correct on first attempt.
+C14,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C14,real,correct,0,0,Correct on first attempt.
+C15,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C15,real,correct,168680,168680,Correct on first attempt.
+C16,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C16,real,correct,376740,376740,Correct on first attempt.
+C17,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C17,real,correct,258180,258180,Correct on first attempt.
+C18,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C18,real,correct,62480,62480,Correct on first attempt.
+C19,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C19,real,correct,1990,1990,Correct on first attempt.
+C20,openai/gpt-oss-120b,traces-A.csv,groq:openai/gpt-oss-120b:C20,real,correct,1106090,1106090,Correct on first attempt.
+C01,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C01,real,correct,792800,792800,Correct on first attempt.
+C02,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C02,real,incorrect,0,590320,"Age convention broken: filters birth_date in (2025-09-25, 2026-09-25], i.e. customers aged 0, not 25 -> 0."
+C03,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C03,real,correct,936350,936350,Correct on first attempt.
+C04,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C04,real,correct,2826250,2826250,Correct on first attempt.
+C05,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C05,real,correct,38480,38480,Correct on first attempt.
+C06,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C06,real,correct,0,0,Correct on first attempt.
+C07,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C07,real,correct,13970,13970,Correct on first attempt.
+C08,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C08,real,correct,605580,605580,Correct on first attempt.
+C09,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C09,real,correct,487980,487980,Correct on first attempt.
+C10,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C10,real,correct,558980,558980,Correct on first attempt.
+C11,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C11,real,incorrect,322160,446690,"Age convention broken: birth_date window (2001-12-01, 2006-12-01] spans 5 years and selects ages 20-24 instead of 25."
+C12,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C12,real,correct,1666490,1666490,Correct on first attempt.
+C13,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C13,real,correct,107740,107740,Correct on first attempt.
+C14,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C14,real,correct,0,0,Correct on first attempt.
+C15,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C15,real,correct,168680,168680,Correct on first attempt.
+C16,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C16,real,correct,376740,376740,Correct on first attempt.
+C17,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C17,real,correct,258180,258180,Correct on first attempt.
+C18,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C18,real,correct,62480,62480,Correct on first attempt.
+C19,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C19,real,correct,1990,1990,Correct on first attempt.
+C20,openai/gpt-oss-20b,traces-B.csv,groq:openai/gpt-oss-20b:C20,real,correct,1106090,1106090,Correct on attempt 2 (retry); first attempt refused: HTTP 429: Rate limit reached for model `openai/gpt-oss-20b` in organiz.
+C01,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C01,real,correct,792800,792800,Correct on first attempt.
+C02,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C02,real,correct,590320,590320,Correct on first attempt.
+C03,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C03,real,correct,936350,936350,Correct on first attempt.
+C04,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C04,real,correct,2826250,2826250,Correct on first attempt.
+C05,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C05,real,correct,38480,38480,Correct on first attempt.
+C06,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C06,real,correct,0,0,Correct on first attempt.
+C07,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C07,real,correct,13970,13970,Correct on first attempt.
+C08,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C08,real,correct,605580,605580,Correct on first attempt.
+C09,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C09,real,correct,487980,487980,Correct on first attempt.
+C10,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C10,real,incorrect,119410,558980,Age convention broken: second branch uses year difference 24 before the birthday (age 23) instead of 26; misses customers aged 25 before their birthday.
+C11,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C11,real,correct,446690,446690,Correct on first attempt.
+C12,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C12,real,correct,1666490,1666490,Correct on first attempt.
+C13,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C13,real,correct,107740,107740,Correct on first attempt.
+C14,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C14,real,correct,0,0,Correct on first attempt.
+C15,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C15,real,incorrect,0,168680,"Age convention broken: tests only month/day, never the birth year, and the two bounds are both '09-25' (<= and >) -> contradictory, 0."
+C16,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C16,real,incorrect,367050,376740,"Age convention off by one day: hard-coded birth years, birthday on 09-25 counted in the wrong year (born 2001-09-25 excluded, 2000-09-25 included)."
+C17,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C17,real,incorrect,248490,258180,Age convention off by one day: same hard-coded year logic as C16 (birthday exactly on 09-25 handled in the wrong year).
+C18,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C18,real,correct,62480,62480,Correct on first attempt.
+C19,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C19,real,incorrect,83580,1990,"Age filter ineffective: compares a year ('2026') with the text '2026-09-25', almost always true -> nearly all customers kept."
+C20,qwen/qwen3.8-27b,traces-D.csv,groq:qwen/qwen3.8-27b:C20,real,correct,1106090,1106090,Correct on first attempt.
