@@ -1,43 +1,28 @@
-# Appels aux modèles (TD 1, étape 2)
+# Model calls (TD 1, step 2)
 
-Les 5 modèles ont reçu les 20 questions le 21/10/2026, via `skeleton-multi-llm-en.py --run`. Les lignes brutes sont fusionnées dans `traces-td1.csv` par `merge_traces.py`, sans aucune modification. Les fichiers sources (`state-*.jsonl` et `traces-*.csv`) sont conservés.
+The 5 models answered the 20 questions on 2026-10-21 with "skeleton-multi-llm-en.py --run". Same prompt for all models, temperature 0, capped output, 45 s timeout, one request at a time, at least 3 s between requests, at most one retry per cell.
 
-## Paramètres
+## Trace files
 
-- Prompt identique pour les 5 modèles. Chaque question a une seule empreinte (`prompt_sha256`), commune aux 5 modèles.
-- Température 0, sortie plafonnée, délai d'attente de 45 s.
-- Une seule requête à la fois pour le sous-groupe, avec au moins 3 s entre deux requêtes.
-- Au plus une relance par cellule, uniquement pour une erreur temporaire (429, délai dépassé, erreur 5xx). La relance est gérée par le fichier `--state`.
-- Références : `reference-td1.csv` (voir `references-td1.md`).
+- "state-A.jsonl" to "state-E.jsonl": raw state of each run, one line per attempt. The skeleton uses it to resume and to limit retries.
+- "traces-A.csv" to "traces-E.csv": the same attempts, exported as CSV by the skeleton.
+- "traces-td1.csv": the 5 CSV files merged under one header, rows unchanged (101 rows).
+- "traces-td1.jsonl": the 5 JSONL files merged, lines unchanged (101 lines).
 
-## Répartition et résultats
+Main columns: "cell_id" (provider:model:question), "prompt_sha256" (prompt fingerprint, the same for the 5 models on a question), "sql", "value", "reference", "verdict", "http_status", "error", "latency_ms", "tokens_*", "cost_native", "attempts" (attempt number), "date_utc", "nature". An empty cell means the value was not measured (for example "cost_native" on free models). All rows are "real": no replay or simulation.
 
-| Lettre | Modèle (identifiant exact) | Accès | Opérateur | Fichiers | Correct | Remarques |
-|---|---|---|---|---|---:|---|
-| A | `openai/gpt-oss-120b` | Groq | Axel | `state-A.jsonl`, `traces-A.csv` | 20/20 | Aucune relance |
-| B | `openai/gpt-oss-20b` | Groq | Axel | `state-B.jsonl`, `traces-B.csv` | 18/20 | C02 et C11 incorrects. C20 : HTTP 429, puis relance réussie |
-| C | `cohere/north-mini-code:free` | OpenRouter (compte d'Axel) | Axel | `state-C.jsonl`, `traces-C.csv` | 12/20 | 6 incorrects, 2 SQL invalides. `--pause 4` |
-| D | `qwen/qwen3.8-27b` | Groq | Axel | `state-D.jsonl`, `traces-D.csv` | 15/20 | C10, C15, C16, C17 et C19 incorrects. `--pause 8` |
-| E | `dots-studio/dots-3-note-preview:free` | OpenRouter (compte de Léo) | Léo | `state-E.jsonl`, `traces-E.csv` | _à compléter_ | `--pause 4` |
+## Results per model
 
-Le détail de chaque erreur se trouve dans `model-question-comparison-en.csv`.
+| | Model (exact id) | Access | Correct | Other verdicts |
+|---|---|---|---:|---|
+| A | openai/gpt-oss-120b | Groq | 20/20 | none |
+| B | openai/gpt-oss-20b | Groq | 18/20 | incorrect: C02, C11 |
+| C | cohere/north-mini-code:free | OpenRouter (account 1) | 12/20 | incorrect: C09, C10, C11, C15, C16, C17 · sql_invalid: C08, C18 |
+| D | qwen/qwen3.8-27b | Groq | 15/20 | incorrect: C10, C15, C16, C17, C19 |
+| E | dots-studio/dots-3-note-preview:free | OpenRouter (account 2) | 11/20 | incorrect: C08, C09, C10, C11, C15, C17, C18, C19 · sql_rejected: C16 |
 
-## Décompte des appels
-
-| Type | Groq | OpenRouter |
-|---|---:|---:|
-| Appels initiaux (base de 100) | 60 | 40 |
-| Relances | 1 (B, C20) | _à compléter (E)_ |
-| Vérifications d'accès (`check_access.py`, avant la séance) | 3 par membre l'ayant lancé | 2 par membre l'ayant lancé |
-
-## Écarts par rapport au protocole
-
-- A, B, C et D ont été lancés par le même membre, alors que le protocole prévoit un opérateur par modèle. C et E sont bien passés par deux comptes OpenRouter distincts.
-- La pause entre requêtes a été allongée, ce que le protocole autorise puisqu'il impose seulement un minimum de 3 s :
-  - pour D, `--pause 8`, après le 429 de B (limite Groq de 8 000 tokens par minute ; le message d'erreur indiquait 7 190 tokens utilisés pour 1 052 demandés) ;
-  - pour C et E, `--pause 4`, pour rester sous la limite d'environ 20 requêtes par minute des modèles gratuits d'OpenRouter.
-- Ces pauses ne changent ni le prompt ni les paramètres du modèle. Elles n'affectent que l'espacement des appels.
-
-## Événement à signaler
-
-B, question C20 : la première tentative a reçu un **HTTP 429** (limite de débit), sans valeur produite. Le script a relancé automatiquement, et la seconde tentative est correcte. Les deux tentatives figurent dans les traces : il s'agit d'un échec d'accès, pas d'une mauvaise réponse.
+Verdicts:
+- **incorrect**: the SQL ran but the value differs from the reference.
+- **sql_invalid**: SQL syntax error.
+- **sql_rejected**: blocked by the sandbox (here: more than one statement).
+- **not_executed**: no answer to run (access error).
