@@ -9,4 +9,4 @@ Warot Axel;
 Goutodier Lucas;
 Chen Léo;
 Kang Nathan;
-Idrissi kaitouli Riyane
+Idrissi Kaitouni Riyane
