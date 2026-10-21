@@ -26,3 +26,32 @@ Verdicts:
 - **sql_invalid**: SQL syntax error.
 - **sql_rejected**: blocked by the sandbox (here: more than one statement).
 - **not_executed**: no answer to run (access error).
+
+## Access failure and retry (gpt-oss-20b, C20)
+
+Cell `groq:openai/gpt-oss-20b:C20` has two attempts in the traces:
+
+| Attempt | Date (UTC) | HTTP | Result |
+|---:|---|---:|---|
+| 1 | 2026-10-21 10:55:52 | 429 | Refused, no SQL returned: "Rate limit reached for model `openai/gpt-oss-20b` ... on tokens per minute (TPM): Limit 8000, Used 7190, Requested 1052" |
+| 2 | 2026-10-21 10:55:55 | 200 | Correct (1 106 090 cents, equal to the reference) |
+
+Cause, read from the error: the Groq Free organisation limit of 8 000 tokens per minute was nearly used by the previous calls of the batch (7 190), and this request needed 1 052 more. It is a temporary access failure, not a wrong answer: the model never received the question on attempt 1. The skeleton retried once, as allowed for a 429, and the cell is final after attempt 2. Both attempts are kept in `traces-B.csv`, `state-B.jsonl` and the merged files.
+
+## Call count
+
+| Type | Groq | OpenRouter |
+|---|---:|---:|
+| Initial calls (base batch of 100 cells) | 60 (A, B, D) | 40 (C, E) |
+| Retries | 1 (B, C20) | 0 |
+| Total attempts in the traces | 61 | 40 |
+| Access checks before the session (`check_access.py`, not in the traces) | 3 per member who ran it | 2 per member who ran it |
+
+## Deviations from the protocol
+
+- One member (Axel) ran A, B, C and D; another member (Léo) ran E. The protocol plans one operator per model. C and E still used two distinct personal OpenRouter accounts, as required.
+- Longer pauses than the 3 s minimum, which the protocol allows:
+  - D (qwen): `--pause 8`, after the 429 on B, to stay under the Groq Free limit of 8 000 tokens per minute;
+  - C and E (OpenRouter `:free`): `--pause 4`, to stay under the limit of about 20 requests per minute of free models.
+  The pause only spaces the calls: prompt, model parameters and fingerprints are unchanged (see `prompt-td1.md`, 20/20 fingerprints recomputed).
+- The models were run before the instructor validated the reference values. The references had been checked internally by two independent Python computations on the CSV files (20/20 each, `verification-td1.txt` and `verification-independante.txt`). If a reference changes after validation, the affected cells will be re-scored in new files and the current ones kept.
