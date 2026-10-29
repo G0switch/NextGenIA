@@ -10,7 +10,7 @@ Warot Axel;
 Goutodier Lucas;
 Chen Léo;
 Kang Nathan;
-Idrissi kaitouli Riyane
+Idrissi kaitouni Riyane
 
 Database: data/boutique.sqlite, seed 20260925, SHA-256 0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2 (identical to data/manifest.json).
 Environment: Windows, PowerShell, Python 3.14.8, SQLite 3.50.4, requests 2.34.2 in a venv. API keys are set as environment variables only, never in a file.
