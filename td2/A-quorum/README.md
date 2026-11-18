@@ -16,11 +16,13 @@ Make several models vote on each question and accept a value only when k of the 
 | [compare_quorums.py](compare_quorums.py) | Compares 2-of-3 and 3-of-5 on C01 to C20 |
 | [Comparison table](step1-quorum-table.md), [CSV](step1-quorum-table.csv) | Decisions across the 20 questions |
 | [Synthetic decisions](step1-synthetic.jsonl), [real decisions](step1-atelier-vote-real.jsonl) | Workshop outputs |
+| [Duplicate route check](step1-duplicate-route.jsonl) | Rejection of a repeated provider and model in a synthetic panel |
 
 ## Run (offline, no key), from the repository root
 
 ```powershell
 python td2/A-quorum/atelier-vote.py
+python td2/A-quorum/atelier-vote.py --duplicate-route
 python td2/A-quorum/atelier-vote.py --traces td1/traces-td1.csv --case C11
 python td2/A-quorum/compare_quorums.py --traces td1/traces-td1.csv
 ```

@@ -2,7 +2,7 @@
 
 ## Pair A - Quorum
 
-The [quorum comparison](../td2/A-quorum/step1-quorum-table.md) records all twenty decisions. The fixed 2-of-3 panel produced 16 correct consensuses and 4 abstentions. The 3-of-5 panel produced 15 correct consensuses and 5 abstentions. See the [replay commands](../td2/A-quorum/README.md).
+The [quorum comparison](../td2/A-quorum/step1-quorum-table.md) records all twenty decisions. The fixed 2-of-3 panel produced 16 correct consensuses and 4 abstentions. The 3-of-5 panel produced 15 correct consensuses and 5 abstentions. See the [replay commands](../td2/A-quorum/README.md) and the [recorded duplicate route check](../td2/A-quorum/step1-duplicate-route.jsonl).
 
 
 

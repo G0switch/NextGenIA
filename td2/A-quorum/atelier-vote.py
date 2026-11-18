@@ -6,6 +6,7 @@ reference is compared AFTER the decision: the vote never receives it.
 
     python3 td2/A-quorum/atelier-vote.py  # four synthetic examples from the repository root
     python3 td2/A-quorum/atelier-vote.py --traces td1/traces-td1.csv --case C02
+    python3 td2/A-quorum/atelier-vote.py --duplicate-route
 """
 import argparse
 import csv
@@ -65,9 +66,27 @@ def evaluate(vote, proposals, reference=None):
             if reference is not None and result["consensus"] else None}
 
 
+def duplicate_route_result(vote):
+    """Check that two proposals from the same route are rejected."""
+    proposals = [
+        SimpleNamespace(provider=provider, model_requested=model, value=100, verdict="executed")
+        for provider, model in (PANEL[0], PANEL[0], PANEL[1])
+    ]
+    try:
+        vote(proposals, 2)
+    except ValueError as exc:
+        if not str(exc).startswith("Duplicate panel member"):
+            raise
+        return {"example": "duplicate route", "nature": "simulation", "n": 3, "k": 2,
+                "result": "rejected", "error": str(exc)}
+    raise ValueError("The vote accepted a duplicate panel member.")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--traces", type=Path)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--traces", type=Path)
+    mode.add_argument("--duplicate-route", action="store_true", help="check rejection of a repeated provider and model")
     parser.add_argument("--case", default="C01")
     parser.add_argument("--nature", choices=["real", "replay", "simulation"], default="real")
     args = parser.parse_args()
@@ -84,6 +103,8 @@ def main():
                 raise ValueError("Conflicting references: check the experiment before voting.")
             result = evaluate(vote, proposals_for(rows, args.case, args.nature), next(iter(refs), None))
             print(json.dumps({"case": args.case, "nature": args.nature, "n": 3, "k": 2, **result}))
+        elif args.duplicate_route:
+            print(json.dumps(duplicate_route_result(vote)))
         else:
             # Synthetic values in cents. These are not results on the shop data.
             for name, values, reference in [

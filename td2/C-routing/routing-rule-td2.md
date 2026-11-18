@@ -43,14 +43,16 @@ All five TD 1 routes cost 0 (free plans), so price does not separate them. Coher
 
 1. Next eligible model in this order: 20B, 120B, Qwen, then Cohere and Dots (only for F1 and F3).
 2. If none is available and the request can wait: wait for the Groq refill (limits are per minute, the 20B retry on C20 worked 3 s after the 429), then check again.
-3. If it cannot wait: paid route of the same model, openai/gpt-oss-120b on OpenRouter, 0.15 / 0.60 USD per million tokens, about 0.0002 USD per request with the median TD 1 tokens of 120B (638 in, 183 out).
-4. If there is no budget: abstain.
+3. If the request cannot wait or no eligible free route replenishes by the deadline, try the paid OpenRouter route for `openai/gpt-oss-120b` within budget. At 0.15 / 0.60 USD per million tokens, a request with the TD 1 median of 638 input and 183 output tokens costs about 0.00021 USD.
+4. If no eligible route fits the deadline and budget, abstain.
 
 ## Simulator
 
 The [original simulator](atelier-routage.py) produced [sim-before.jsonl](sim-before.jsonl). The [adapted simulator](atelier-routage-td2.py) produced [sim-after.jsonl](sim-after.jsonl).
 
-Changes: the resources are the five TD 1 models and the paid 120B route. Eligibility is the list of families where the model was 100 % correct, instead of a level. The order between free models uses the public index. The checks depend on the use. Each reason cites the TD 1 cells.
+The adapted simulator covers the seven original situations using its own question families, model resources and quotas. `unknown family` corresponds to the original `unknown capability` scenario. `priority` is the eighth case and shows a switch to the free 120B route when 20B is exhausted.
+
+Changes: the resources are the five TD 1 models and the paid 120B route. Eligibility is the list of families where the model was 100 % correct, instead of a level. The order between free models uses the public index. The checks depend on the use. Run and defer decisions cite the relevant TD 1 cells. An abstention reports an unmeasured family or that no eligible route meets the deadline and budget.
 
 | Scenario | Request | Decision | Resource |
 |---|---|---|---|

@@ -2,5 +2,6 @@
 
 For group A to confirm.
 
-- The TD 1 traces support the choice of GPT-OSS 120B for questions about age on a fixed date. It got all four F2 questions right, while GPT-OSS 20B got two right. [Results by family](routing-rule-td2.md#td-1-rates-per-family)
-- For an F2 figure shown to a customer, the simulator requires both a quorum and a reference check. For a payment, it requires a reference check and human review. [Checks by use](routing-rule-td2.md#checks-per-use)
+Part C chooses a model based on TD 1 results and sets the checks according to how the answer will be used. For age at a fixed date (F2), GPT-OSS 120B got four out of four and GPT-OSS 20B got two out of four. That supports choosing 120B for this family. [Results by family](routing-rule-td2.md#td-1-rates-per-family)
+
+Adding an F2 customer scenario beside the existing F2 payment scenario would show the two policies in the simulator output. A customer figure needs a quorum and a reference check. A payment needs a reference check and human review. [Checks by use](routing-rule-td2.md#checks-per-use)

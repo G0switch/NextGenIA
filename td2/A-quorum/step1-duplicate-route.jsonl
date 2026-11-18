@@ -1,0 +1,1 @@
+{"example": "duplicate route", "nature": "simulation", "n": 3, "k": 2, "result": "rejected", "error": "Duplicate panel member groq:openai/gpt-oss-120b: a repeated call is not a second vote. Keep only the last attempt."}
