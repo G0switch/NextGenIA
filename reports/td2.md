@@ -1,12 +1,12 @@
 # TD 2 report
 
-## Pair A — Quorum
+## Pair A - Quorum
 
 The [quorum comparison](../td2/A-quorum/step1-quorum-table.md) records all twenty decisions. The fixed 2-of-3 panel produced 16 correct consensuses and 4 abstentions. The 3-of-5 panel produced 15 correct consensuses and 5 abstentions. See the [replay commands](../td2/A-quorum/README.md).
 
 
 
-## Pair B — Shared wrong answer on C11
+## Pair B - Shared wrong answer on C11
 
 C11 asks for the total revenue excluding VAT, in euro cents, from **all orders** placed by customers who were **exactly 25 on 1 December 2026**. The reference in [reference-td1.csv](../td1/reference-td1.csv) is **446,690 cents**.
 
@@ -104,8 +104,8 @@ The [Python check](../td2/B-consensus/check_c11_csv.py) recomputes completed age
 
 When the 3-of-5 quorum abstains on C11, escalate to the deterministic calculation. For age-based figures used externally or for payments, check the eligible customer IDs and the revenue against a calculation based on completed age, even when the models agree. Comparing the customer sets can catch errors that cancel out in the total. If the check is unavailable or the discrepancy remains unresolved, hold the figure for human review.
 
-The [separate DEMO-VOTE exercise](../td2/B-consensus/README.md#demo-vote--synthetic-example) illustrates how two identical SQL boundary errors can reach a strict majority on an invented sale.
+The [separate DEMO-VOTE exercise](../td2/B-consensus/README.md#demo-vote---synthetic-example) illustrates how two identical SQL boundary errors can reach a strict majority on an invented sale.
 
-## Pair C — Routing
+## Pair C - Routing
 
 The [routing rule](../td2/C-routing/routing-rule-td2.md) defines the first model per question family, the checks per use and the fallback when the first model is unavailable. The [routing directory](../td2/C-routing/README.md) contains both simulators and their outputs.

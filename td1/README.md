@@ -1,4 +1,4 @@
-# TD 1 — SQL references and model evaluation
+# TD 1 - SQL references and model evaluation
 
 The group checked 20 SQL references and evaluated five models on the same questions. See the [TD 1 report](../reports/td1.md) for results and contributions.
 

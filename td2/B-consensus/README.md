@@ -1,6 +1,6 @@
-# Part B — Consensus
+# Part B - Consensus
 
-The [C11 analysis](../../reports/td2.md#pair-b--shared-wrong-answer-on-c11) explains why Cohere and Dots both returned 0 cents on the real TD 1 traces and shows the decisions of both quorums.
+The [C11 analysis](../../reports/td2.md#pair-b---shared-wrong-answer-on-c11) explains why Cohere and Dots both returned 0 cents on the real TD 1 traces and shows the decisions of both quorums.
 
 ## Verify C11
 
@@ -14,7 +14,7 @@ python td2/B-consensus/check_c11_csv.py
 
 The [reference query](../../td1/refs/C11.sql) returns 446,690 cents. The [delta query](td2-c11-delta.sql) identifies the revenue omitted by each model, and the [independent CSV calculation](check_c11_csv.py) reproduces the [customer-level results](c11-csv-check.txt) directly from the source data.
 
-## DEMO-VOTE — synthetic example
+## DEMO-VOTE - synthetic example
 
 The [demo](demo_vote.py) runs both SQL variants on an in-memory table with one invented sale of 100 cents on 1 January 2026. The requested period includes 1 January and ends before 2 January.
 

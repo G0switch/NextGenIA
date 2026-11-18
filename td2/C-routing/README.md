@@ -1,4 +1,4 @@
-# Part C — Routing
+# Part C - Routing
 name : IDRISSI KAITOUNI Riyane, DISERBEAU Arthur, Goutodier Lucas.
 
 The [routing rule](routing-rule-td2.md) uses TD 1 results by question family and chooses checks according to how the answer will be used.
