@@ -69,6 +69,19 @@ WHERE c.birth_date IS NOT NULL
 
 The equality selects people turning 25 that day. C11 includes everyone who had turned 25 by that day and would turn 26 later, so the correct birth-date interval is **after 2000-12-01 and on or before 2001-12-01**. No customer has the exact birthday selected by Dots. In both queries, `COALESCE` returns 0 for the empty selection.
 
+**Reference SQL**
+
+The [TD 1 reference query](../td1/refs/C11.sql) computes completed age by subtracting one year when the birthday has yet to occur on the reference date. It returns 446,690 cents.
+
+```sql
+SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
+FROM orders o
+JOIN product p ON p.product_id = o.product_id
+JOIN customers c ON c.customer_id = o.customer_id
+WHERE (CAST(substr('2026-12-01',1,4) AS INTEGER) - CAST(substr(c.birth_date,1,4) AS INTEGER))
+      - (substr('2026-12-01',6,5) < substr(c.birth_date,6,5)) = 25;
+```
+
 ### Exact reconciliation
 
 The [delta query](../td2/B-consensus/td2-c11-delta.sql) compares the three populations by customer and totals each customer's order lines as `quantity_product * price`. Run it from the repository root with `python td1/run_sql.py td2/B-consensus/td2-c11-delta.sql`.
@@ -83,7 +96,15 @@ The [delta query](../td2/B-consensus/td2-c11-delta.sql) compares the three popul
 | C009 | 2001-03-10 | 5 | 61,330 |
 | **Total** | | **32** | **446,690** |
 
-Each query omitted those six customers and added no revenue. The delta for each model is therefore **446,690 − 0 = 446,690 cents**. A separate calculation from the source CSVs, using completed age in years, matched the same IDs and amounts. A deterministic check for future age-based questions can compare both the contributing customer IDs and their revenue against the age rule before accepting a model total.
+Each query omitted those six customers and added no revenue. The delta for each model is therefore **446,690 − 0 = 446,690 cents**.
+
+### Independent CSV check and escalation
+
+The [Python check](../td2/B-consensus/check_c11_csv.py) recomputes completed age from the birth dates in `customers.csv`: it subtracts one year if the birthday has yet to occur on the reference date. For customers aged 25, it counts distinct orders in `orders.csv` and sums each order line's quantity times the unit price from `product.csv`. The [recorded output](../td2/B-consensus/c11-csv-check.txt) matches all six customer IDs, all six subtotals and the total of 446,690 cents. The calculation uses only the three source CSVs.
+
+When the 3-of-5 quorum abstains on C11, escalate to the deterministic calculation. For age-based figures used externally or for payments, check the eligible customer IDs and the revenue against a calculation based on completed age, even when the models agree. Comparing the customer sets can catch errors that cancel out in the total. If the check is unavailable or the discrepancy remains unresolved, hold the figure for human review.
+
+The [separate DEMO-VOTE exercise](../td2/B-consensus/README.md#demo-vote--synthetic-example) illustrates how two identical SQL boundary errors can reach a strict majority on an invented sale.
 
 ## Pair C — Routing
 

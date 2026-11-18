@@ -1,0 +1,10 @@
+customer_id | birth_date | distinct_orders | revenue_cents
+C001 | 2001-09-25 | 8 | 135000
+C002 | 2001-09-24 | 3 | 25920
+C003 | 2001-09-26 | 4 | 47900
+C006 | 2001-11-30 | 5 | 77450
+C008 | 2001-05-15 | 7 | 99090
+C009 | 2001-03-10 | 5 | 61330
+Customers with orders: 6
+Distinct orders: 32
+Total revenue (cents): 446690
