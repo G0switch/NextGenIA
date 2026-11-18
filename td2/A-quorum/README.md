@@ -6,22 +6,23 @@ DIA4-G3 · Pair A: Adam Gaabi, Axel Warot, Timéo Brajon · Session 18 November 
 
 Make several models vote on each question and accept a value only when k of the n panel members agree (strict majority). Then compare a 2-of-3 fixed panel with a 3-of-5 quorum on the 20 TD 1 questions.
 
-## Files (currently at the repository root, to be moved here with the final layout)
+## Files
 
 | file | role |
 |---|---|
-| `skeleton-multi-llm-en.py` | kit skeleton with `Orchestrateur.vote_k_sur_n` implemented (only change) |
-| `vote_k_sur_n.py` | the same method on its own, for review |
-| `atelier-vote.py` | kit file, unchanged: 4 synthetic examples or one real question |
-| `compare_quorums.py` | 2-of-3 vs 3-of-5 on C01 to C20 with our vote |
-| `reports/step1-*` | outputs: 20-question table (md, csv), synthetic and real decisions (jsonl) |
+| [skeleton-multi-llm-en.py](../../td1/skeleton-multi-llm-en.py) | Kit skeleton with `Orchestrateur.vote_k_sur_n` implemented |
+| [vote_k_sur_n.py](vote_k_sur_n.py) | The method on its own, for review |
+| [atelier-vote.py](atelier-vote.py) | Runs four synthetic examples or one real question |
+| [compare_quorums.py](compare_quorums.py) | Compares 2-of-3 and 3-of-5 on C01 to C20 |
+| [Comparison table](step1-quorum-table.md), [CSV](step1-quorum-table.csv) | Decisions across the 20 questions |
+| [Synthetic decisions](step1-synthetic.jsonl), [real decisions](step1-atelier-vote-real.jsonl) | Workshop outputs |
 
 ## Run (offline, no key), from the repository root
 
-```
-python atelier-vote.py
-python atelier-vote.py --traces traces-td1.csv --case C11
-python compare_quorums.py --traces traces-td1.csv
+```powershell
+python td2/A-quorum/atelier-vote.py
+python td2/A-quorum/atelier-vote.py --traces td1/traces-td1.csv --case C11
+python td2/A-quorum/compare_quorums.py --traces td1/traces-td1.csv
 ```
 
 ## Vote contract
